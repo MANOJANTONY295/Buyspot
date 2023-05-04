@@ -62,8 +62,8 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     )
     email = models.EmailField(
         max_length=50,
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
         validators=[validate_email],
     )
     otp = models.IntegerField(null=True)

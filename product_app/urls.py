@@ -4,7 +4,7 @@ from django.urls import include, path
 from rest_framework import routers
 from django.conf.urls.static import static
 
-from product_app.views import CategoryViewSet, ProductViewSet,CartViewSet,MyOrderViewSet,OrderViewSet, SearchView
+from product_app.views import CategoryViewSet, PaymentViewSet, ProductSearchAPIView, ProductViewSet,CartViewSet,MyOrderViewSet,OrderViewSet
 
 
 router = routers.DefaultRouter()
@@ -14,13 +14,18 @@ router.register(r'cart', CartViewSet)
 router.register(r'myorder',MyOrderViewSet)
 router.register(r'order',OrderViewSet)
 
+
+#router.register('payments/', PaymentViewSet)#check manoj
+router.register(r'payments', PaymentViewSet) #check manoj
+
 # router.register(r'rating',RatingViewSet)
 
 
 urlpatterns = [
    path('', include(router.urls)),
    # path('api/', include('rest_framework.urls', namespace='rest_framework'))
-   path('search/', SearchView.as_view())
-
+   #path('search/', SearchAPIView.as_view())#check manoj
+   path('products/search/', ProductSearchAPIView.as_view()),#check manoj
+   #path('payments/', PaymentViewSet.as_view())#check manoj
    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

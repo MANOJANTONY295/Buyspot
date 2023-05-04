@@ -17,7 +17,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    item = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     Image = models.ImageField(upload_to='product_images/')
     price = models.FloatField(default=0)
     offer = models.IntegerField(default=0)
@@ -160,10 +160,17 @@ class Order(models.Model):
 #         return self.user.username    
 
 
+#check manoj
 
-#test
+from django.db import models
 
-class YourModel(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    # ... add other fields as necessary
+class Payment(models.Model):
+    customer_name = models.CharField(max_length=50)
+    order_id = models.IntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_status = models.CharField(max_length=20)
+    payment_mode = models.CharField(max_length=20)
+    Payment_id = models.IntegerField()
+
+

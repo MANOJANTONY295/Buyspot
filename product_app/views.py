@@ -40,20 +40,71 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer    
 
-#test
+#test manoj
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+
+# from .models import Product
+# from .serializers import ProductSerializer
+# from rest_framework.filters import SearchFilter
+
+
+# class SearchAPIView(APIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     filter_backends = [SearchFilter]
+#     search_fields = ['item', 'price']
+
+    # def get(self, request, format=None):
+    #     query = request.GET.get(all)
+
+    #     if not query:
+    #         return Response([])
+
+    #     queryset = Product.objects.filter(name__icontains=query)
+    #     serializer = ProductSerializer(queryset, many=True)
+
+    #     return Response(serializer.data)
+
+    #test manoj
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from .models import YourModel
-from .serializers import YourSerializer
+from .models import Product
+from .serializers import ProductSerializer
 
-class SearchView(APIView):
+class ProductSearchAPIView(APIView):
     def get(self, request, format=None):
-        query = request.GET.get('q', '')
-        results = YourModel.objects.filter(name__icontains=query)
-        serializer = YourSerializer(results, many=True)
+        products = Product.objects.all()
+
+        # Apply filters if present in the request query params
+        name = request.query_params.get('name', None)
+        category = request.query_params.get('category', None)
+        min_price = request.query_params.get('min_price', None)
+        max_price = request.query_params.get('max_price', None)
+
+        if name:
+            products = products.filter(name__icontains=name)
+        if category:
+            products = products.filter(category=category)
+        if min_price:
+            products = products.filter(price__gte=min_price)
+        if max_price:
+            products = products.filter(price__lte=max_price)
+
+        serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
+    
+
+#check manoj
+
+from rest_framework import viewsets
+from .models import Payment
+from .serializers import PaymentSerializer
 
 
+
+class PaymentViewSet(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
 

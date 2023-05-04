@@ -2,7 +2,7 @@
 
 #check
 
-import datetime
+#import datetime
 import random
 import requests
 from django.conf import settings
@@ -35,8 +35,11 @@ from django.utils.http import urlsafe_base64_encode
 #from django.shortcuts import get_or_create
 #from django.contrib.auth import get_or_create
 import jwt
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 from django.conf import settings
+
+now = timezone.now()
 
 def generate_jwt_token(user):
     # generate JWT token with user id as payload
@@ -137,19 +140,19 @@ class RegenerateOTP(APIView):
 
 
 
-# class UpdateUser(APIView):
-#     def get(self,request,pk):
-#         user = UserModel.objects.get(id=pk)
-#         serializer = UserEditSerializer(user)
-#         return Response(serializer.data)
-#     def put(self,request,pk):
-#         user = UserModel.objects.get(id=pk)
-#         user.first_name = request.data.get('first_name', user.first_name)
-#         user.last_name = request.data.get('last_name', user.last_name)
-#         user.email = request.data.get('email', user.email)
-#         user.address = request.data.get('address', user.address)
-#         user.save()
-#         return Response({'message': 'User updated successfully.'})
+class UpdateUser(APIView):
+    def get(self,request,pk):
+        user = UserModel.objects.get(id=pk)
+        serializer = UserEditSerializer(user)
+        return Response(serializer.data)
+    def put(self,request,pk):
+        user = UserModel.objects.get(id=pk)
+        user.first_name = request.data.get('first_name', user.first_name)
+        user.last_name = request.data.get('last_name', user.last_name)
+        user.email = request.data.get('email', user.email)
+        user.address = request.data.get('address', user.address)
+        user.save()
+        return Response({'message': 'User updated successfully.'})
 
 class ForgotPasswordView(APIView):
     serializer_class = ForgotPasswordSerializer
