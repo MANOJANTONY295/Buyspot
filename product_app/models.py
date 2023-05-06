@@ -17,7 +17,7 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    item = models.CharField(max_length=100)
     Image = models.ImageField(upload_to='product_images/')
     price = models.FloatField(default=0)
     offer = models.IntegerField(default=0)
@@ -41,10 +41,13 @@ class Cart(models.Model):
 
 class MyOrder(models.Model):
     ''' a list of ordered items '''
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)                                        
-    product_name = models.CharField(max_length=500)                           
-    quantity = models.IntegerField(default=1)                                                       
-    ordered = models.BooleanField(default=False)                                                    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)        
+    order_id = models.IntegerField()                                
+    ordered_item= models.CharField(max_length=100)                           
+    quantity = models.IntegerField()         
+    price = models.IntegerField()                                              
+    ordered_on = models.DateTimeField(max_length=100) 
+    delivered_on = models.DateTimeField(max_length=50)                                                      
 
     def __str__(self):
         return f"{self.quantity} of {self.item.title}"
