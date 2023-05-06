@@ -42,7 +42,7 @@ class Cart(models.Model):
 class MyOrder(models.Model):
     ''' a list of ordered items '''
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)                                        
-    product_name = models.CharField(max_length=500)                           
+    product = models.CharField(max_length=500)                           
     quantity = models.IntegerField(default=1)                                                       
     ordered = models.BooleanField(default=False)                                                    
 
@@ -60,16 +60,20 @@ class MyOrder(models.Model):
 class Order(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
-    product_name = models.CharField(max_length=500)
+    product = models.CharField(max_length=500)
     total_product = models.CharField(max_length=500, default=0)
     transaction_id = models.CharField(max_length=150, default=0)
-    total_amout = models.CharField(max_length=50, default=0)
-
+    total_amount = models.CharField(max_length=50, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    # status = models.CharField(
+    #     choices=STATUS_CHOICES,
+    #     max_length=50,
+    #     default="Pending"
+    #     )
+ 
     def __str__(self):
-        return self.product_name    
+        return self.product
     
 
 # class Item_Rating(models.Model):
@@ -162,7 +166,7 @@ class Order(models.Model):
 
 #check manoj
 
-from django.db import models
+
 
 class Payment(models.Model):
     customer_name = models.CharField(max_length=50)

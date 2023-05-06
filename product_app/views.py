@@ -1,13 +1,15 @@
 
 from django.shortcuts import get_object_or_404, render
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
-# from rest_framework import generics
 from rest_framework import viewsets
 from product_app.models import *
 from product_app.serializers import *
+from .models import Payment
+from .serializers import PaymentSerializer
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Product
+from .serializers import ProductSerializer
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
@@ -40,38 +42,9 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer    
 
-#test manoj
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
 
-# from .models import Product
-# from .serializers import ProductSerializer
-# from rest_framework.filters import SearchFilter
-
-
-# class SearchAPIView(APIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-#     filter_backends = [SearchFilter]
-#     search_fields = ['item', 'price']
-
-    # def get(self, request, format=None):
-    #     query = request.GET.get(all)
-
-    #     if not query:
-    #         return Response([])
-
-    #     queryset = Product.objects.filter(name__icontains=query)
-    #     serializer = ProductSerializer(queryset, many=True)
-
-    #     return Response(serializer.data)
 
     #test manoj
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Product
-from .serializers import ProductSerializer
 
 class ProductSearchAPIView(APIView):
     def get(self, request, format=None):
@@ -98,9 +71,7 @@ class ProductSearchAPIView(APIView):
 
 #check manoj
 
-from rest_framework import viewsets
-from .models import Payment
-from .serializers import PaymentSerializer
+
 
 
 

@@ -27,12 +27,12 @@ class CartSerializer(serializers.ModelSerializer):
 class MyOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model =MyOrder    
-        fields =['user','product_name','quantity','ordered']    
+        fields =['user','product','quantity','ordered']    
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
-        fields = ('product_name', 'total_product')
+        fields = ('product', 'total_product','transaction_id','total_amount','created_at','updated_at')
 
 #check manoj
 
