@@ -35,8 +35,7 @@ from django.utils.http import urlsafe_base64_encode
 #from django.shortcuts import get_or_create
 #from django.contrib.auth import get_or_create
 import jwt
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from django.conf import settings
 
 now = timezone.now()
@@ -117,7 +116,8 @@ class RegenerateOTP(APIView):
             )
 
         otp = random.randint(1000, 9999)
-        otp_expiry = timezone.now() + datetime.timedelta(minutes=10)
+        #otp_expiry = timezone.now() + datetime.timedelta(minutes=10) #to check
+        otp_expiry = timezone.now() + timedelta(minutes=10)
         max_otp_try = int(instance.max_otp_try) - 1
         print(instance.otp)
         instance.otp = otp
@@ -125,7 +125,8 @@ class RegenerateOTP(APIView):
         instance.max_otp_try = max_otp_try
         if max_otp_try == 0:
             # Set cool down time
-            otp_max_out = timezone.now() + datetime.timedelta(hours=1)
+            #otp_max_out = timezone.now() + datetime.timedelta(hours=1) #to check
+            otp_max_out = timezone.now() + timedelta(hours=1)
             instance.otp_max_out = otp_max_out
         elif max_otp_try == -1:
             instance.max_otp_try = settings.MAX_OTP_TRY

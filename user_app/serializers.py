@@ -64,7 +64,7 @@ class UserSerializer(serializers.ModelSerializer):
         Used to create the user
         """
         otp = random.randint(1000, 9999)
-        otp_expiry = datetime.now() + timedelta(minutes = 1)
+        otp_expiry = datetime.now() + timedelta(minutes = 10)
 
         user = UserModel(
             phone_number=validated_data["phone_number"],
