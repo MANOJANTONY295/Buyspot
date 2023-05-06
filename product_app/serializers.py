@@ -10,7 +10,7 @@ class   ProductSerializer(serializers.ModelSerializer):
     # rating = serializers.StringRelatedField()
     class Meta:
         model =Product
-        fields = ['id', 'name','Image', 'price','offer','size', 'category', 'stock', 'rating','description']
+        fields = ['id', 'item','Image', 'price','offer','size', 'category', 'stock', 'rating','description']
         #Fields = '__all__'
 
 # class RatingSerializer(serializers.ModelSerializer):
@@ -22,12 +22,16 @@ class   ProductSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model =Cart
-        fields =['id','name','image','size','quantity', 'price', 'total']
+        fields =['id','item','image','size','quantity', 'price', 'total']
 
 class MyOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model =MyOrder    
+<<<<<<< HEAD
         fields =['user','product','quantity','ordered']    
+=======
+        fields =['user','order_id','ordered_item','quantity','price','ordered_on','delivered_on']
+>>>>>>> 0a404a4e2440a38996b758c7737eb8889fa60560
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -45,6 +49,16 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = ('id', 'customer_name', 'order_id', 'amount', 'payment_date', 'payment_status', 'payment_mode', 'Payment_id')
 
  
+ #check manoj
+
+from rest_framework import serializers
+from .models import Product
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
 
 
 

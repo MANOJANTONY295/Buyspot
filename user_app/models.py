@@ -83,4 +83,3 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
         return self.phone_number
 
 
-
