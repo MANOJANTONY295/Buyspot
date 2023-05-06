@@ -10,7 +10,7 @@ class   ProductSerializer(serializers.ModelSerializer):
     # rating = serializers.StringRelatedField()
     class Meta:
         model =Product
-        fields = ['id', 'name','Image', 'price','offer','size', 'category', 'stock', 'rating','description']
+        fields = ['id', 'item','Image', 'price','offer','size', 'category', 'stock', 'rating','description']
         #Fields = '__all__'
 
 # class RatingSerializer(serializers.ModelSerializer):
@@ -22,12 +22,12 @@ class   ProductSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model =Cart
-        fields =['id','name','image','size','quantity', 'price', 'total']
+        fields =['id','item','image','size','quantity', 'price', 'total']
 
 class MyOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model =MyOrder    
-        fields =['user','product_name','quantity','ordered']    
+        fields =['user','order_id','ordered_item','quantity','price','ordered_on','delivered_on']
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
