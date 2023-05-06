@@ -177,3 +177,11 @@ class Payment(models.Model):
     Payment_id = models.IntegerField()
 
 
+#check manoj
+
+class ProductPopularity(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    popularity = models.IntegerField(default=0)
+
+
+

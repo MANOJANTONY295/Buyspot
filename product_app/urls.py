@@ -4,7 +4,7 @@ from django.urls import include, path
 from rest_framework import routers
 from django.conf.urls.static import static
 
-from product_app.views import CategoryViewSet, PaymentViewSet, ProductSearchAPIView, ProductViewSet,CartViewSet,MyOrderViewSet,OrderViewSet
+from product_app.views import CategoryViewSet, PaymentViewSet, PopularProductsAPIView, ProductSearchAPIView, ProductViewSet,CartViewSet,MyOrderViewSet,OrderViewSet
 
 
 router = routers.DefaultRouter()
@@ -27,5 +27,6 @@ urlpatterns = [
    #path('search/', SearchAPIView.as_view())#check manoj
    path('products/search/', ProductSearchAPIView.as_view()),#check manoj
    #path('payments/', PaymentViewSet.as_view())#check manoj
+   path('popular/', PopularProductsAPIView.as_view()),
    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

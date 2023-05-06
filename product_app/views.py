@@ -108,3 +108,33 @@ class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Product, ProductPopularity
+from .serializers import ProductSerializer
+
+
+class PopularProductsAPIView(APIView):
+    def get(self, request, format=None):
+        # Get the top 10 most popular products
+        popular_products = ProductPopularity.objects.order_by('-popularity')[:10]
+        product_ids = [pp.product.id for pp in popular_products]
+        products = Product.objects.filter(id__in=product_ids)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        # Increment the popularity count for the given product
+        product_id = request.data.get('product_id')
+        try:
+            product = Product.objects.get(id=product_id)
+            popularity, created = ProductPopularity.objects.get_or_create(product=product)
+            popularity.popularity += 1
+            popularity.save()
+            return Response(status=status.HTTP_200_OK)
+        except Product.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
